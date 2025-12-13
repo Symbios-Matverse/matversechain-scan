@@ -26,7 +26,7 @@ class Pole(Base):
     latency_ms = Column(BigInteger)
     block_number = Column(BigInteger)
     tx_hash = Column(String)
-    timestamp = Column(BigInteger)
+    timestamp = Column(BigInteger, index=True)
 
 def init_db(path: str):
     eng = create_engine(f"sqlite:///{path}")

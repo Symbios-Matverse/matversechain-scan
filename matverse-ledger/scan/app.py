@@ -17,7 +17,7 @@ def list_pose():
 def list_pole():
     rows = q("""
       SELECT claim_hash, submitter, verdict, omega_u6, psi_u6, cvar_u6, latency_ms, run_hash, timestamp, tx_hash
-      FROM pole ORDER BY id DESC LIMIT 50
+      FROM pole ORDER BY timestamp DESC LIMIT 50
     """)
     for r in rows:
         r["omega"] = r["omega_u6"]/1e6
@@ -27,7 +27,7 @@ def list_pole():
 
 def find_claim(claim_hash):
     pose = q("SELECT * FROM pose WHERE claim_hash=:h ORDER BY id DESC LIMIT 5", {"h": claim_hash})
-    pole = q("SELECT * FROM pole WHERE claim_hash=:h ORDER BY id DESC LIMIT 20", {"h": claim_hash})
+    pole = q("SELECT * FROM pole WHERE claim_hash=:h ORDER BY timestamp DESC LIMIT 20", {"h": claim_hash})
     for r in pole:
         r["omega"] = r["omega_u6"]/1e6
         r["psi"]   = r["psi_u6"]/1e6
@@ -35,7 +35,11 @@ def find_claim(claim_hash):
     return pose, pole
 
 with gr.Blocks(title="MatVerseScan") as demo:
-    gr.Markdown("# MatVerseScan\nExplorer leve para PoSE/PoLE indexado em SQLite.\n\nObservação: este app não executa a blockchain. Ele apenas lê o banco indexado.")
+    gr.Markdown(
+        "# MatVerseScan\n"
+        "Explorer leve para PoSE/PoLE indexado em SQLite.\n\n"
+        "Observação: este app não executa a blockchain. Ele apenas lê o banco indexado."
+    )
 
     with gr.Tab("PoSE (claims)"):
         btn1 = gr.Button("Atualizar lista")
