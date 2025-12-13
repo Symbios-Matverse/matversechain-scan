@@ -17,6 +17,14 @@ def q(sql: str, params=None):
         return [dict(x._mapping) for x in r.fetchall()]
 
 
+def _add_readable_metrics(rows):
+    for r in rows:
+        r["omega"] = r["omega_u6"] / 1e6
+        r["psi"] = r["psi_u6"] / 1e6
+        r["cvar"] = r["cvar_u6"] / 1e6
+    return rows
+
+
 def list_pose():
     # pose tem id autoincrement: OK ordenar por id
     return q(
@@ -32,11 +40,7 @@ def list_pole():
         "latency_ms, run_hash, timestamp, tx_hash "
         "FROM pole ORDER BY timestamp DESC, tx_hash DESC LIMIT 50",
     )
-    for r in rows:
-        r["omega"] = r["omega_u6"] / 1e6
-        r["psi"] = r["psi_u6"] / 1e6
-        r["cvar"] = r["cvar_u6"] / 1e6
-    return rows
+    return _add_readable_metrics(rows)
 
 
 def find_claim(claim_hash: str):
@@ -48,11 +52,7 @@ def find_claim(claim_hash: str):
         "SELECT * FROM pole WHERE claim_hash=:h ORDER BY timestamp DESC, tx_hash DESC LIMIT 20",
         {"h": claim_hash},
     )
-    for r in pole:
-        r["omega"] = r["omega_u6"] / 1e6
-        r["psi"] = r["psi_u6"] / 1e6
-        r["cvar"] = r["cvar_u6"] / 1e6
-    return pose, pole
+    return pose, _add_readable_metrics(pole)
 
 
 with gr.Blocks(title="MatVerseScan") as demo:
