@@ -35,7 +35,11 @@ def find_claim(claim_hash):
     return pose, pole
 
 with gr.Blocks(title="MatVerseScan") as demo:
-    gr.Markdown("# MatVerseScan\nExplorer leve para PoSE/PoLE indexado em SQLite.\n\nObservação: este app não executa a blockchain. Ele apenas lê o banco indexado.")
+    gr.Markdown(
+        "# MatVerseScan\n"
+        "Explorer leve para PoSE/PoLE indexado em SQLite.\n\n"
+        "Observação: este app não executa a blockchain. Ele apenas lê o banco indexado."
+    )
 
     with gr.Tab("PoSE (claims)"):
         btn1 = gr.Button("Atualizar lista")
