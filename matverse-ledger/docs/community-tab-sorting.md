@@ -19,6 +19,10 @@ Para quem usa a aba Community como trilha de auditoria (claims, issues de verifi
 - Definir **Default = Recently Created**.
 - Justificativa: minimiza ambiguidade temporal, reduz chance de perder itens novos e simplifica a revisão sequencial.
 
+### Onde alterar no Hugging Face
+- Em **Settings → Community**, escolha o valor em **Default sorting**.
+- A configuração afeta Discussões e PRs da aba Community.
+
 ## Sugestão operacional
 1. Abrir as **Settings** do repositório no Hugging Face (tab "Community").
 2. Selecionar **Recently Created** como default.
