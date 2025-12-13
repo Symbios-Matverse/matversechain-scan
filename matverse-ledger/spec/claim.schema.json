@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["id", "title", "statement", "artifact", "expected"],
+  "properties": {
+    "id": {"type":"string"},
+    "title": {"type":"string"},
+    "statement": {"type":"string"},
+    "artifact": {
+      "type":"object",
+      "required":["kind","uri","hash"],
+      "properties":{
+        "kind":{"type":"string"},
+        "uri":{"type":"string"},
+        "hash":{"type":"string"}
+      }
+    },
+    "expected": {
+      "type":"object",
+      "required":["tolerances"],
+      "properties":{
+        "tolerances":{"type":"object"}
+      }
+    }
+  }
+}
