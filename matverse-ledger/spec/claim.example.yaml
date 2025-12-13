@@ -1,0 +1,13 @@
+id: "claim-0001"
+title: "Baseline bench determinístico v0"
+statement: "Executar bench/run_bench.py com seed=1337 produz métricas dentro das tolerâncias."
+artifact:
+  kind: "python"
+  uri: "./bench/run_bench.py"
+  hash: "sha256:2fd9151a9e0e9a3d1b7907c0ea3240e3a7e09b52cb6ef169381b9a14d4c6c9d1"
+expected:
+  tolerances:
+    omega: 0.05
+    psi: 0.05
+    cvar: 0.03
+    latency_ms: 50

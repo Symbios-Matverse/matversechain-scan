@@ -1,0 +1,6 @@
+{
+  "omega_abs": 0.05,
+  "psi_abs": 0.05,
+  "cvar_abs": 0.03,
+  "latency_ms_abs": 50
+}
