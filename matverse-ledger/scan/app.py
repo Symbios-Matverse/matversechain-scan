@@ -26,16 +26,12 @@ def list_pose():
 
 
 def list_pole():
-    # pole NÃO tem id: ordenar por timestamp (ou block_number)
+    # pole NÃO tem id: ordenar por timestamp (ou block_number) + tx_hash para ordem total
     rows = q(
         "SELECT claim_hash, submitter, verdict, omega_u6, psi_u6, cvar_u6, "
         "latency_ms, run_hash, timestamp, tx_hash "
-        "FROM pole ORDER BY timestamp DESC LIMIT 50"
+        "FROM pole ORDER BY timestamp DESC, tx_hash DESC LIMIT 50",
     )
-    rows = q("""
-      SELECT claim_hash, submitter, verdict, omega_u6, psi_u6, cvar_u6, latency_ms, run_hash, timestamp, tx_hash
-      FROM pole ORDER BY timestamp DESC LIMIT 50
-    """)
     for r in rows:
         r["omega"] = r["omega_u6"] / 1e6
         r["psi"] = r["psi_u6"] / 1e6
@@ -49,12 +45,9 @@ def find_claim(claim_hash: str):
         {"h": claim_hash},
     )
     pole = q(
-        "SELECT * FROM pole WHERE claim_hash=:h ORDER BY timestamp DESC LIMIT 20",
+        "SELECT * FROM pole WHERE claim_hash=:h ORDER BY timestamp DESC, tx_hash DESC LIMIT 20",
         {"h": claim_hash},
     )
-def find_claim(claim_hash):
-    pose = q("SELECT * FROM pose WHERE claim_hash=:h ORDER BY id DESC LIMIT 5", {"h": claim_hash})
-    pole = q("SELECT * FROM pole WHERE claim_hash=:h ORDER BY timestamp DESC LIMIT 20", {"h": claim_hash})
     for r in pole:
         r["omega"] = r["omega_u6"] / 1e6
         r["psi"] = r["psi_u6"] / 1e6
