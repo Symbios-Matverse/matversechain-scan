@@ -1,6 +1,8 @@
 # Hugging Face: ordenamento padrão da aba Community
 
 ## Contexto
+- Changelog do Hugging Face: donos de repositório podem definir o **ordenamento padrão** da aba **Community** (Discussions/PRs).
+- Opções disponíveis: **Trending**, **Most Reactions** ou **Recently Created**.
 - Changelog do Hugging Face (28/out/2025): donos de repositório podem definir o **ordenamento padrão** da aba **Community** (Discussions/PRs).
 - Opções disponíveis: **Trending**, **Most Reactions** ou **Recently Created**.
 - Evento notado no feed: a org **MatVerseHub** deu upvote no item "Set Default Sorting in the Community Tab" (66 upvotes).
