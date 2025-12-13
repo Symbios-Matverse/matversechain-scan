@@ -58,6 +58,10 @@ make snapshot \
 * Reprodutibilidade (bench scripts + tolerâncias)
 * Leveza (scan é client; chain roda fora do HF)
 
+## Notas de governança/comunicação
+
+* A Hugging Face permite definir o **ordenamento padrão** da aba Community (Discussions/PRs) por repositório. Veja `docs/community-tab-sorting.md` para recomendações rápidas.
+
 ## Licença
 
 MIT
