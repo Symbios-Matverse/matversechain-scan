@@ -1,2 +1,2 @@
-# matverse-council
-Conselho autônomo de auditoria verificável – MatVerse v1
+matversechain-scan
+Sistema autônomo de auditoria verificável – MatVerse v1
