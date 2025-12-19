@@ -304,6 +304,7 @@ def app_ui():
     return demo
 
 
+fastapi_app = FastAPI(docs_url=None, redoc_url=None, openapi_url=None)
 fastapi_app = FastAPI()
 fastapi_app.include_router(capt_router)
 app = gr.mount_gradio_app(fastapi_app, app_ui(), path="/")
