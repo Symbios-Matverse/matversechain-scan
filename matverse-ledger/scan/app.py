@@ -10,13 +10,18 @@ from datetime import datetime
 
 import pandas as pd
 import gradio as gr
+from fastapi import FastAPI
 from sqlalchemy import create_engine, text
 
 from benchmarks_core import load_core_benchmarks
+from capt_api import router as capt_router
 
 
 DB_PATH = os.environ.get("MATVERSE_DB", "matversescan.db")
 DASHBOARD_URL = "https://app.base44.com/apps/693d491d7d92782a1a55f89e/editor/preview/Dashboard"
+CAPT_DASHBOARD_URL = (
+    "https://app.base44.com/apps/694471aafc033d574cd4579f/editor/preview/Dashboard"
+)
 
 
 def _engine():
@@ -258,6 +263,36 @@ def app_ui():
                     """
                 )
 
+            # ===== TAB 3: CAPT Runtime =====
+            with gr.Tab("CAPT Runtime"):
+                gr.Markdown(
+                    f"""
+                    ## CAPT Runtime (Base44)
+
+                    **Abrir em nova aba:** {CAPT_DASHBOARD_URL}
+
+                    **Endpoints CAPT**
+                    - `POST /capt/chromeos/capture`
+                    - `POST /capt/terabox/measure`
+                    - `GET /capt/runtime/status`
+                    - `POST /capt/benchmark/freeze`
+                    """
+                )
+
+                gr.HTML(
+                    f"""
+                    <div style="width:100%; height:78vh; border:1px solid rgba(0,0,0,.12); border-radius:12px; overflow:hidden;">
+                      <iframe
+                        src="{CAPT_DASHBOARD_URL}"
+                        style="width:100%; height:100%; border:0;"
+                        loading="lazy"
+                        referrerpolicy="no-referrer"
+                        allow="clipboard-read; clipboard-write; fullscreen"
+                      ></iframe>
+                    </div>
+                    """
+                )
+
         gr.Markdown(
             f"""
             ---
@@ -269,5 +304,12 @@ def app_ui():
     return demo
 
 
+fastapi_app = FastAPI(docs_url=None, redoc_url=None, openapi_url=None)
+fastapi_app.include_router(capt_router)
+app = gr.mount_gradio_app(fastapi_app, app_ui(), path="/")
+
+
 if __name__ == "__main__":
-    app_ui().launch(server_name="0.0.0.0", server_port=int(os.environ.get("PORT", "7860")))
+    import uvicorn
+
+    uvicorn.run(app, host="0.0.0.0", port=int(os.environ.get("PORT", "7860")))
