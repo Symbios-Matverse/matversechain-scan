@@ -12,6 +12,7 @@ class CAPTMeasurement {
             method: 'POST',
             headers: this._authHeaders(),
         });
+        const response = await fetch('/capt/chromeos/capture', { method: 'POST' });
         return response.json();
     }
 
@@ -20,6 +21,7 @@ class CAPTMeasurement {
             method: 'POST',
             headers: this._authHeaders(),
         });
+        const response = await fetch('/capt/terabox/measure', { method: 'POST' });
         return response.json();
     }
 

@@ -7,6 +7,7 @@ import os
 from typing import Any
 
 from fastapi import APIRouter, Depends, Header, HTTPException, status
+from fastapi import APIRouter
 
 from capt.measurement.benchmark_freeze import CAPTBenchmarkFreezeStore
 from capt.runtime.governed_client import ChromeOSRuntimeGovernor
@@ -41,6 +42,7 @@ def _require_token(x_capt_token: str | None = Header(default=None)) -> None:
 
 
 router = APIRouter(dependencies=[Depends(_require_token)])
+router = APIRouter()
 _governor = ChromeOSRuntimeGovernor()
 _freeze_store = CAPTBenchmarkFreezeStore()
 
@@ -68,3 +70,4 @@ async def runtime_status() -> dict:
 async def freeze_benchmark(payload: dict | None = None) -> dict:
     safe_payload = _validate_payload(payload or {})
     return _freeze_store.freeze(safe_payload)
+    return _freeze_store.freeze(payload)
